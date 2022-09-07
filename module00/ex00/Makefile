@@ -1,0 +1,30 @@
+SRC		=	megaphone.cpp
+OBJ		=	$(SRC:.cpp=.o)
+NAME	=	megaphone
+CC		=	c++
+CFLAGS	=	-Wall -Wextra -Werror -MD -MP -std=c++98
+DEPENDS :=	$(SRC:.cpp=.d)
+
+
+.PHONY	:	all re clean fclean
+
+all		:	$(NAME)
+
+$(NAME)	:	$(OBJ) Makefile
+			$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+
+%.o		:	%.cpp
+			$(CC) $(CFLAGS) -c $< -o ${<:.cpp=.o}
+
+clean	:	
+			rm -f *.o
+
+fclean	:	clean
+			rm -f $(NAME) $(DEPENDS)
+
+x		:	all
+			./$(NAME)  Damnit " ! " "Sorry students, I thought this thing was off."
+
+re		:	fclean all
+
+-include $(DEPENDS)
